@@ -1,0 +1,196 @@
+{
+  "fetch": [
+    {
+      "hash": "sha256-4EZdt9+Fcqj9WhNUuSfMq5l7nZEQmGhMRPeWOmqBY/o=",
+      "name": "k0s",
+      "unpack": true,
+      "url": "https://github.com/k0sproject/k0s/archive/refs/tags/v1.33.13+k0s.1.tar.gz"
+    },
+    {
+      "hash": "sha256-Ve0pZgGiAWgZiArcqnk0oMU6PpPcoUzN52+dtxD6XxE=",
+      "name": "containerd",
+      "unpack": true,
+      "url": "https://github.com/containerd/containerd/archive/refs/tags/v1.7.34.tar.gz"
+    },
+    {
+      "hash": "sha256-XrFuYT1IOkwroRAHFOvgLQUcyBJ8LUrWse7xzG5GOWM=",
+      "name": "etcd",
+      "unpack": true,
+      "url": "https://github.com/etcd-io/etcd/archive/refs/tags/v3.5.33.tar.gz"
+    },
+    {
+      "hash": "sha256-9C67axHGWy3Z9WXEYDzUGzPYIhw59bdvfujU70Pw1KA=",
+      "name": "iptables",
+      "unpack": true,
+      "url": "https://www.netfilter.org/projects/iptables/files/iptables-1.8.11.tar.xz"
+    },
+    {
+      "hash": "sha256-S5ChO7pwTEW572pwDgAc4YAADaKUOwxRHWhv8xTM4dE=",
+      "name": "keepalived",
+      "unpack": true,
+      "url": "https://www.keepalived.org/software/keepalived-2.2.8.tar.gz"
+    },
+    {
+      "hash": "sha256-UL1HhN5qWgtzltY4eAU9SlnK80tKUHBORMFHunDCi+Q=",
+      "name": "kine",
+      "unpack": true,
+      "url": "https://github.com/rancher/kine/archive/refs/tags/v0.13.19.tar.gz"
+    },
+    {
+      "hash": "sha256-x9f2OsFOo7EwRIx61j9520ZiEfrNGpt8ZAE1FYNWXmc=",
+      "name": "konnectivity",
+      "unpack": true,
+      "url": "https://github.com/kubernetes-sigs/apiserver-network-proxy/archive/refs/tags/v0.32.0.tar.gz"
+    },
+    {
+      "hash": "sha256-hh8cPXSnYFgbLLxWXvAFFsxjxur1LUdkQYessxqzr+E=",
+      "name": "kubernetes",
+      "unpack": true,
+      "url": "https://github.com/kubernetes/kubernetes/archive/refs/tags/v1.33.13.tar.gz"
+    },
+    {
+      "hash": "sha256-abLRrEYmM6gl2UOK4tOy/jfjnlBU5n0AMwEU1Shyf1s=",
+      "name": "runc",
+      "unpack": true,
+      "url": "https://github.com/opencontainers/runc/archive/refs/tags/v1.2.8.tar.gz"
+    },
+    {
+      "hash": "sha256-g7YIUjLRWIw3ncm5yuR7s3QHzyYubnSZPGG6ctKnhNw=",
+      "name": "runc/extra",
+      "unpack": false,
+      "url": "https://github.com/seccomp/libseccomp/releases/download/v2.6.0/libseccomp-2.6.0.tar.gz"
+    }
+  ],
+  "k0sVersion": "1.33.13+k0s.1",
+  "upstream": {
+    "components": {
+      "containerd": {
+        "build_go_ldflags": "-w -s",
+        "build_go_ldflags_extra": "-extldflags=-static",
+        "build_go_tags": "apparmor,selinux",
+        "build_shim_go_cgo_enabled": "0",
+        "buildimage": "docker.io/library/golang:1.25.12-alpine3.23",
+        "source_tag": "v1.7.34",
+        "source_url": "https://github.com/containerd/containerd.git",
+        "version": "1.7.34"
+      },
+      "etcd": {
+        "build_go_cgo_enabled": "0",
+        "build_go_ldflags": "-w -s",
+        "buildimage": "docker.io/library/golang:1.25.12-alpine3.23",
+        "source_tag": "v3.5.33",
+        "source_url": "https://github.com/etcd-io/etcd.git",
+        "version": "3.5.33"
+      },
+      "iptables": {
+        "buildimage": "docker.io/library/alpine:3.22.5",
+        "source_url": "https://www.netfilter.org/projects/iptables/files/iptables-1.8.11.tar.xz",
+        "version": "1.8.11"
+      },
+      "keepalived": {
+        "build_cflags": "-static -s",
+        "build_configure_flags": "--disable-dynamic-linking",
+        "build_ldflags": "-static",
+        "buildimage": "docker.io/library/alpine:3.22.5",
+        "source_url": "https://www.keepalived.org/software/keepalived-2.2.8.tar.gz",
+        "version": "2.2.8"
+      },
+      "kine": {
+        "build_go_cgo_cflags": "-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_USE_ALLOCA=1",
+        "build_go_ldflags": "-w -s",
+        "build_go_ldflags_extra": "-extldflags=-static",
+        "build_go_tags": "nats",
+        "buildimage": "docker.io/library/golang:1.25.12-alpine3.23",
+        "source_tag": "v0.13.19",
+        "source_url": "https://github.com/rancher/kine.git",
+        "version": "0.13.19"
+      },
+      "konnectivity": {
+        "build_go_cgo_enabled": "0",
+        "build_go_flags": "-a",
+        "build_go_ldflags": "-w -s",
+        "build_go_ldflags_extra": "-extldflags=-static",
+        "buildimage": "docker.io/library/golang:1.25.12-alpine3.23",
+        "source_tag": "v0.32.0",
+        "source_url": "https://github.com/kubernetes-sigs/apiserver-network-proxy.git",
+        "version": "0.32.0"
+      },
+      "kubernetes": {
+        "build_go_flags": "-v",
+        "build_go_ldflags_extra": "-extldflags=-static",
+        "build_go_tags": "providerless",
+        "buildimage": "docker.io/library/golang:1.25.12-alpine3.23",
+        "source_tag": "v1.33.13",
+        "source_url": "https://github.com/kubernetes/kubernetes.git",
+        "version": "1.33.13"
+      },
+      "runc": {
+        "argpin_LIBSECCOMP_VERSION": "2.6.0",
+        "build_go_ldflags": "-w -s",
+        "build_go_ldflags_extra": "-extldflags=-static",
+        "build_go_tags": "seccomp",
+        "buildimage": "docker.io/library/golang:1.25.12-alpine3.23",
+        "extra_urls": [
+          "https://github.com/seccomp/libseccomp/releases/download/v2.6.0/libseccomp-2.6.0.tar.gz"
+        ],
+        "source_tag": "v1.2.8",
+        "source_url": "https://github.com/opencontainers/runc.git",
+        "version": "1.2.8"
+      }
+    },
+    "global": {
+      "alpine_patch_version": "3.22.5",
+      "go_version": "1.25.12"
+    },
+    "k0sBinary": {
+      "env": {
+        "CGO_CFLAGS": "",
+        "CGO_ENABLED": "1",
+        "GOOS": "linux"
+      },
+      "go_flags": [
+        "-tags=osusergo",
+        "-buildvcs=false",
+        "-trimpath"
+      ],
+      "ldflags": [
+        "-w",
+        "-s",
+        "-X github.com/k0sproject/k0s/pkg/build.Version=v1.33.13-dev+k0s",
+        "-X github.com/k0sproject/k0s/pkg/build.RuncVersion=1.2.8",
+        "-X github.com/k0sproject/k0s/pkg/build.ContainerdVersion=1.7.34",
+        "-X github.com/k0sproject/k0s/pkg/build.KubernetesVersion=1.33.13",
+        "-X github.com/k0sproject/k0s/pkg/build.KineVersion=0.13.19",
+        "-X github.com/k0sproject/k0s/pkg/build.EtcdVersion=3.5.33",
+        "-X github.com/k0sproject/k0s/pkg/build.KonnectivityVersion=0.32.0",
+        "-X github.com/k0sproject/k0s/pkg/build.EulaNotice=",
+        "-X github.com/k0sproject/k0s/pkg/telemetry.segmentToken=",
+        "-X k8s.io/component-base/version.gitVersion=v1.33.13",
+        "-X k8s.io/component-base/version.gitMajor=1",
+        "-X k8s.io/component-base/version.gitMinor=33",
+        "-X k8s.io/component-base/version.buildDate=1970-01-01T00:00:00Z",
+        "-X k8s.io/component-base/version.gitCommit=not_available",
+        "-X github.com/containerd/containerd/version.Version=1.7.34",
+        "-X github.com/containerd/containerd/version.Revision=",
+        "-extldflags=-static"
+      ]
+    },
+    "payloadBinaries": [
+      "runc",
+      "kubelet",
+      "containerd",
+      "containerd-shim",
+      "containerd-shim-runc-v1",
+      "containerd-shim-runc-v2",
+      "kube-apiserver",
+      "kube-scheduler",
+      "kube-controller-manager",
+      "etcd",
+      "kine",
+      "konnectivity-server",
+      "xtables-legacy-multi",
+      "xtables-nft-multi",
+      "keepalived"
+    ]
+  }
+}
