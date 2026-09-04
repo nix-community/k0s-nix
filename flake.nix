@@ -28,6 +28,13 @@
         "x86_64-darwin"
       ];
       allSystems = k0sSystems ++ darwinSystems;
+      # nixfmt is Haskell and nixpkgs has no GHC bootstrap for
+      # armv7l-linux.
+      formatterSystems = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ]
+      ++ darwinSystems;
       forAllSystems = lib.genAttrs allSystems;
     in
     {
@@ -51,7 +58,7 @@
 
       nixosModules.default = ./nixos/k0s.nix;
 
-      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
+      formatter = lib.genAttrs formatterSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
 
       checks = forAllSystems (
         system:

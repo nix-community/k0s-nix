@@ -17,6 +17,34 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - run: nix fmt -- --ci
 
+  eval-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - name: compute the systems the flake offers outputs for
+        id: set-matrix
+        run: |
+          set -Eeu
+          matrix="$(nix flake show --all-systems --json | jq -cr '[.packages, .checks, .formatter | keys] | add | unique')"
+          echo "matrix=${matrix}" >> "$GITHUB_OUTPUT"
+
+  eval:
+    runs-on: ubuntu-latest
+    needs: eval-matrix
+    strategy:
+      fail-fast: false
+      matrix:
+        system: ${{ fromJson(needs.eval-matrix.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: nix flake check --no-build --option system ${{ matrix.system }}
+
   checks-matrix:
     runs-on: ubuntu-latest
     outputs:
