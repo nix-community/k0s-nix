@@ -14,7 +14,7 @@
           k0s_1_35
           k0s_1_36
           ;
-        k0s = k0s_1_35;
+        k0s = k0s_1_36;
       };
 
       lib = nixpkgs.lib;
