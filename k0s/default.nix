@@ -15,6 +15,7 @@ let
     k0s_1_34 = import ./1_34.nix;
     k0s_1_35 = import ./1_35.nix;
     k0s_1_36 = import ./1_36.nix;
+    k0s_1_37 = import ./1_37.nix;
   };
   k0sRuntimeDeps = [
     util-linuxMinimal
