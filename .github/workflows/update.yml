@@ -60,7 +60,8 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
           rm commit.md
 
-      - uses: peter-evans/create-pull-request@v8
+      - id: create
+        uses: peter-evans/create-pull-request@v8
         if: ${{ steps.commit-message.outputs.message }}
         with:
           commit-message: ${{ steps.commit-message.outputs.message }}
@@ -70,3 +71,9 @@ jobs:
 
             See workflow run [here](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
           branch: update-${{ matrix.k0s-version }}
+
+      # enable auto-merge on update PRs
+      - run: gh pr merge --auto --merge ${{ steps.create.outputs.pull-request-number }}
+        if: steps.create.outputs.pull-request-operation == 'created'
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
