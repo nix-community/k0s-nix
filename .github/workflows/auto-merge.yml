@@ -1,0 +1,19 @@
+name: auto-merge
+
+on:
+  pull_request_target:
+    types:
+      - opened
+
+jobs:
+  auto-merge-updates:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    if: (github.actor == 'dependabot[bot]' || github.actor == 'nix-update-app[bot]') && github.event_name == 'pull_request_target' && github.repository_owner == 'nix-community'
+    steps:
+      - uses: actions/checkout@v7
+      - run: gh pr merge --auto --merge ${{github.event.pull_request.number}}
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}

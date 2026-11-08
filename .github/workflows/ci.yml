@@ -17,18 +17,6 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - run: nix fmt -- --ci
 
-  auto-merge-dependabot:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' && github.repository_owner == 'nix-community' }}
-    steps:
-      - uses: actions/checkout@v7
-      - run: gh pr merge --auto --merge ${{github.event.pull_request.number}}
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
   eval-matrix:
     runs-on: ubuntu-latest
     outputs:
