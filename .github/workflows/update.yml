@@ -60,7 +60,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
           rm commit.md
 
-      - uses: actions/create-github-app-token@v2
+      - uses: actions/create-github-app-token@v3
         id: generate-token
         if: ${{ steps.commit-message.outputs.message }}
         with:
